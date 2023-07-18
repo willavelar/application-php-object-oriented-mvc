@@ -5,7 +5,7 @@ services:
   apache:
     build:
       context: ./backend
-    container_name: php-apache
+    container_name: apache-registration-php-object-oriented-mvc
     restart: always
     ports:
       - '80:80'
@@ -17,7 +17,7 @@ services:
 
   db:
     image: mariadb:10.3
-    container_name: db
+    container_name: db-registration-php-object-oriented-mvc
     env_file: .env
     volumes:
       - db-data:/var/lib/mysql
