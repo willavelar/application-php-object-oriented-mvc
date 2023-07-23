@@ -1,6 +1,7 @@
 ## Application PHP OO MVC
 
-![Docker Version Support](https://img.shields.io/badge/docker-23.0%2B-brightgreen.svg?style=flat-square)
+![Docker Version Support](https://img.shields.io/badge/Docker-23.0%2B-brightgreen.svg?style=flat-square)
+![NPM Version Support](https://img.shields.io/badge/NPM-9.6%2B-brightgreen.svg?style=flat-square)
 
 It is an example of using a pattern mvc in php7.4 but with installation completely via docker, this application has user registration, login and post registration
 
