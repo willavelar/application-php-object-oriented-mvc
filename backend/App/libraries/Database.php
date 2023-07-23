@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Libraries;
+namespace app\libraries;
 
 use PDO;
 use PDOException;
@@ -47,7 +47,7 @@ class Database {
     public function bind($param, $value, $type = null)
     {
         if (is_null($type)) {
-            switch ($type) {
+            switch ($value) {
                 case is_int($value):
                     $type = PDO::PARAM_INT;
                     break;

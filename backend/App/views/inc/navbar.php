@@ -7,19 +7,28 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto ">
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= URLROOT ?>">Home</a>
+                    <a class="nav-link" href="<?= URLROOT ?>/pages">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= URLROOT ?>/pages/about">About</a>
                 </li>
             </ul>
             <ul class="navbar-nav ms-auto ">
+                <?php if (isset($_SESSION['user_id'])) : ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= URLROOT ?>/users/logout">Welcome <?= $_SESSION['user_name']; ?></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?= URLROOT ?>/users/logout">Logout</a>
+                    </li>
+                <?php else:; ?>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= URLROOT ?>/users/register">Register</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= URLROOT ?>/users/login">Login</a>
                 </li>
+                <?php endif; ?>
             </ul>
         </div>
     </div>

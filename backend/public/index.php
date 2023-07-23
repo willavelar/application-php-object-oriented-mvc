@@ -2,4 +2,4 @@
 
 require_once '../app/bootstrap.php';
 
-$init = new \App\Libraries\Core;
+$init = new \app\libraries\Core;

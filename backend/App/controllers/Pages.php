@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Controllers;
+namespace app\controllers;
 
-use App\Libraries\Controller;
-use App\Libraries\Model;
+use app\libraries\Controller;
 
 class Pages extends Controller
 {
@@ -15,6 +14,11 @@ class Pages extends Controller
 
     public function index()
     {
+
+        if (isLoggedIn()) {
+           redirect('/posts');
+        }
+
         $data = [
             'title' => 'SharePosts',
             'description' => 'Simple social network buily on the MVC PHP Framework'

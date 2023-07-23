@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Libraries;
+namespace app\libraries;
 
 class Core {
     protected string $currentController = 'Index';
@@ -19,7 +19,7 @@ class Core {
 
         require_once'../app/controllers/' .  $this->currentController . '.php';
 
-        $controllerPath = 'App\\Controllers\\'.$this->currentController;
+        $controllerPath = 'app\\controllers\\'.$this->currentController;
 
         $controllerObj = new $controllerPath;
 

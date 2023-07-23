@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="<?= URLROOT ?>" />
     <link rel="stylesheet" href="<?= URLROOT ?>/node_modules/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="<?= URLROOT ?>/node_modules/@fontawesome/fontawesome-free/css/all.css" />
+    <link rel="stylesheet" href="<?= URLROOT ?>/node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
     <title><?= SITENAME; ?></title>
 </head>
 <body>

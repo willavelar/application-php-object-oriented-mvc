@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controllers;
+namespace app\controllers;
 
-use App\Libraries\Controller;
+use app\libraries\Controller;
 
 class Index extends Controller
 {

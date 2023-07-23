@@ -2,6 +2,7 @@
     <div class="row">
         <div class="col-md-6 mx-auto">
             <div class="card card-body bg-light mt-5">
+                <?php flash('register_success'); ?>
                 <h2>Login</h2>
                 <p>Please fill in your credentials to log in</p>
                 <form action="<?= URLROOT ?>/users/login" method="post">
@@ -14,7 +15,7 @@
                     <div class="mb-3">
                         <label for="password" class="form-label">Password: <sup>*</sup></label>
                         <input type="password" id="password" name="password" class="form-control form-control-lg <?= (!empty($data['password_err'])) ? 'is-invalid' : ''; ?>"
-                               value="<?= $data['confirm_password']; ?>"/>
+                               value="<?= $data['password_err']; ?>"/>
                         <span class="invalid-feedback"><?= $data['password_err']; ?></span>
                     </div>
 

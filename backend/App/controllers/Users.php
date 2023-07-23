@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Controllers;
+namespace app\controllers;
 
-use App\Libraries\Controller;
-use App\Models\User;
+use app\libraries\Controller;
+use app\models\User;
+use stdClass;
 
 class Users extends Controller
 {
@@ -32,16 +33,10 @@ class Users extends Controller
 
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            $data = [
-                'name' => trim($_POST['name']),
-                'email' =>trim($_POST['email']),
-                'password' => trim($_POST['password']),
-                'confirm_password' => trim($_POST['confirm_password']),
-                'name_err' => '',
-                'email_err' =>  '',
-                'password_err' =>  '',
-                'confirm_password_err' => '',
-            ];
+            $data['name'] = trim($_POST['name']);
+            $data['email'] = trim($_POST['email']);
+            $data['password'] = trim($_POST['password']);
+            $data['confirm_password'] = trim($_POST['confirm_password']);
 
             if (empty($data['name'])) {
                 $data['name_err'] = 'Please enter name';
@@ -66,7 +61,15 @@ class Users extends Controller
             }
 
             if (empty($data['name_err']) && empty($data['email_err']) && empty($data['password_err'])  && empty($data['confirm_password_err'])) {
-                die('SUCCESS');
+
+                $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+
+                if ($this->userModel->register($data)) {
+                    flash('register_success', 'You are registered and can log in');
+                    redirect('/users/login');
+                } else {
+                    flash('register_error', 'An error occurred when trying to register, please try again', 'alert alert-danger');
+                }
             }
         }
 
@@ -87,12 +90,8 @@ class Users extends Controller
 
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            $data = [
-                'email' =>trim($_POST['email']),
-                'password' => trim($_POST['password']),
-                'email_err' =>  '',
-                'password_err' => '',
-            ];
+            $data['email'] = trim($_POST['email']);
+            $data['password'] = trim($_POST['password']);
 
             if (empty($data['email'])) {
                 $data['email_err'] = 'Please enter email';
@@ -104,11 +103,40 @@ class Users extends Controller
                 $data['password_err'] = 'Password must be at least 6 characters';
             }
 
-            if ( empty($data['email_err']) && empty($data['password_err'])) {
-                die('SUCCESS');
+            if (!empty($data['email']) && !$this->userModel->hasEmail( $data['email'])) {
+                $data['email_err'] = 'No user found';
+            }
+
+            if (empty($data['email_err']) && empty($data['password_err'])) {
+
+                $loggedInUser = $this->userModel->login($data['email'], $data['password']);
+
+                if ($loggedInUser) {
+                    $this->createUserSession($loggedInUser);
+                } else {
+                    $data['password_err'] = 'Password incorrect';
+                }
+
             }
         }
 
         $this->view('users/login', $data);
+    }
+
+    public function createUserSession(stdClass $user) : void
+    {
+        $_SESSION['user_id'] = $user->id;
+        $_SESSION['user_email'] = $user->email;
+        $_SESSION['user_name'] = $user->name;
+
+        redirect('/pages/index');
+    }
+
+    public function logout() : void
+    {
+        unset($_SESSION['user_id'], $_SESSION['user_email'], $_SESSION['user_name']);
+        session_destroy();
+
+        redirect('/users/login');
     }
 }

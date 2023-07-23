@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Libraries;
+namespace app\libraries;
 
 class Controller {
 
@@ -8,7 +8,7 @@ class Controller {
     {
         require_once '../app/models/'. $model . '.php';
 
-        $model = 'App\Models\\'.$model;
+        $model = 'app\models\\'.$model;
 
         return new $model();
     }
